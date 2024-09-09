@@ -1,11 +1,11 @@
-import { CountList } from "./helpers/countBy.js";
-import Estatisticas from "./Estatisticas.js";
-import fetchData from "./helpers/fetchData.js";
-import normalizarTransacao from "./helpers/normalizarTransacao.js";
+import { CountList } from './helpers/countBy.js';
+import Estatisticas from './Estatisticas.js';
+import fetchData from './helpers/fetchData.js';
+import normalizarTransacao from './helpers/normalizarTransacao.js';
 
 const handleData = async () => {
   const data = await fetchData<TransacaoAPI[]>(
-    "https://api.origamid.dev/json/transacoes.json"
+    'https://api.origamid.dev/json/transacoes.json'
   );
 
   if (!data) {
@@ -13,6 +13,7 @@ const handleData = async () => {
   }
 
   const transacoes = data.map(normalizarTransacao);
+
   preencherTabela(transacoes);
   preencherEstatisticas(transacoes);
 };
@@ -59,18 +60,20 @@ const preencherEstatisticas = (transacoes: Transacao[]): void => {
   const total = document.querySelector<HTMLElement>(
     '[data-js="est-total"] > span'
   );
+
   if (!total) {
     return;
   }
 
-  total.innerText = data.total.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+  total.innerText = data.total.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
   });
 
   const melhorDia = document.querySelector<HTMLElement>(
     '[data-js="est-melhor-dia"] > span'
   );
+
   if (!melhorDia) {
     return;
   }
